@@ -10,27 +10,47 @@ function Word(characters) {
     for(i=0;i<word.length;i++)
     {
         let character = word.charAt(i);
-        letter = new Letter(character);
-        this.letters.push(letter);
+        if ( character != '"')
+        {
+            letter = new Letter(character);
+            this.letters.push(letter);
+        }
     }
-    this.guessed = false;    
+    this.answered = false;    
   }
   
 // creates the toString() method and applies it to all programmer objects
 Word.prototype.toString = function() {
     let word = '';
     this.letters.forEach(element => {
-        word += element.toString();
+        word += element.toString() + ' ';
     });
-    console.log("Word: " + word + "\nGuessed: " + this.guessed);
+//    console.log("Word: " + word + "\nAnswered: " + this.answered);
     return word;
 };
-  
+
+Word.prototype.isAnswered = function() {
+    let word = '';
+    this.answered = true; // Assume is is true
+    this.letters.forEach(element => {
+        if( !element.guessed )
+        {
+//            console.log('!isAnswered');
+            this.answered = false;
+            return this.answered;
+        }
+    });
+//    if (this.answered)
+//        console.log('isAnswered');
+
+    return this.answered;
+}
+
 // creates the guessLetter() method and applies it to all programmer objects
 Word.prototype.guessLetter = function(choice) {
     let foundLetter = false;
     let foundAllLetters = true; // Assume so until determined otherwise
-    console.log("character: " + this.character + "\nGuessed: " + this.guessed);
+ //   console.log("character: " + this.character + "\nGuessed: " + this.guessed);
     this.letters.forEach(element => {
         if (element.guessLetter(choice))
         {
@@ -39,7 +59,7 @@ Word.prototype.guessLetter = function(choice) {
                 foundAllLetters = false; 
         }
     });
-    console.log('Found A Letter: ' + foundLetter + ' Found All Letters: ' + foundAllLetters  );
+//   console.log('Found A Letter: ' + foundLetter + ' Found All Letters: ' + foundAllLetters  );
     return foundAllLetters;
 };
 

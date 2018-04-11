@@ -7,8 +7,8 @@ function Letter(character) {
 
 // creates the toString() method and applies it to all programmer objects
 Letter.prototype.toString = function() {
-  console.log("character: " + this.character + "\nGuessed: " + this.guessed);
-  if (!guessed)
+//  console.log("Character: " + this.character + "\nGuessed: " + this.guessed);
+  if (this.guessed)
     return this.character;
   else
     return '_';
@@ -16,7 +16,7 @@ Letter.prototype.toString = function() {
 
 // creates the guessLetter() method and applies it to all programmer objects
 Letter.prototype.guessLetter = function(choice) {
-  console.log("character: " + this.character + "\nGuessed: " + this.guessed);
+//  console.log("Character: " + this.character + "\nGuessed: " + this.guessed);
   if ( this.character == choice )
   {
     this.character = choice;

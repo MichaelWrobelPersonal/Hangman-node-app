@@ -1,30 +1,39 @@
 // dependency for inquirer npm package
 var inquirer = require("inquirer");
 var Word = require("./Word");
+var gameWord = null;
+var guessedWord = false;
 
 // constructor function used to create programmers objects
-function Game() {
-  this.word = new Word('TestWord');
-  this.guessed = false;
-  console.log(this.word);
+var createGame = function() {
+  gameWord = new Word('TestWord');
+  guessedWord = false;
+//  console.log(gameWord);
+  console.log('Lets Play');
+  console.log( '\n' + gameWord.toString() + '\n');
+  playGame(0); // Start game at round 0
 };
 
-Game.prototype.playRound = function()
+function playGame(turn) 
 {
-  console.log('Lets Play');
-  inquirer.prompt([
+  if ( !gameWord.isAnswered() )
   {
+    inquirer.prompt([
+    {
        name: "letter",
        message: "Guess one of the letters"
-  }]).then(function(answer)
-  {     
-       this.guessed = this.word.guessLetter(letter);
-       this.word.toString(); // Primnt Results
-       if (!this.guessed)    // Keep going if not ugueesed completelly
-            this.playRound();
-  })
-  console.log('Done playing');
+    }]).then(function(answer)
+    {     
+       guessedWord = gameWord.guessLetter(answer.letter);
+       console.log( '\n' + gameWord.toString() + '\n' ); // Print Results
+       if (!gameWord.isAnswered()) // Keep going if not ugueesed completelly
+            playGame(turn+1); // Play it again Sam....
+       else
+            console.log( '\n\nCongratulations!!!\n\n' );
+    })
+//    console.log('\nDone playing');
+  }
 };
 
-let hangman = new Game();
-hangman.playRound();
+// Kick it off
+createGame();
