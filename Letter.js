@@ -17,7 +17,9 @@ Letter.prototype.toString = function() {
 // creates the guessLetter() method and applies it to all programmer objects
 Letter.prototype.guessLetter = function(choice) {
 //  console.log("Character: " + this.character + "\nGuessed: " + this.guessed);
-  if ( this.character == choice )
+  if (( this.character == choice )
+  ||  ( this.character == choice.toUpperCase())
+  ||  ( this.character == choice.toLowerCase()))
   {
     this.character = choice;
     this.guessed = true;

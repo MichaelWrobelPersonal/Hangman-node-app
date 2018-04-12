@@ -6,7 +6,8 @@ var guessedWord = false;
 
 // constructor function used to create programmers objects
 var createGame = function() {
-  gameWord = new Word('TestWord');
+//  theWord = pickAWord();
+  gameWord = new Word(pickAWord());
   guessedWord = false;
 //  console.log(gameWord);
   console.log('Lets Play');
@@ -34,6 +35,20 @@ function playGame(turn)
 //    console.log('\nDone playing');
   }
 };
+
+// Hangman variables
+var theWords = ["ALPINE", "LUGE","BASKETBALL","SKING","SKATING","DOWNHILL","MEDAL","KOREA", "OLYMPIC" ];
+var theWord =    "";
+ 
+function pickAWord( ) {
+  var randnum= Math.floor((Math.random()) * theWords.length + 1);
+  console.log('index: ' + randnum);
+  var theWord = theWords[randnum];
+  console.log(theWord);
+//  for (i=0;i<selectedWord.length;i++)
+//      toDisplay += '_';
+  return theWord;
+}
 
 // Kick it off
 createGame();
