@@ -2,65 +2,71 @@
 let Letter = require("./Letter");
 
 // constructor function used to create letter objects
-function Word(characters) {
+function Word(characters, placeholder) {
     this.letters = [];
+    this.placeholder = placeholder;
     let letter = "_";
     let word = "";
-    word = JSON.stringify(characters);
-    for(i=0;i<word.length;i++)
+    word = characters.toString();
+    for(i=0; i < word.length ;i++)
     {
         let character = word.charAt(i);
         if ( character != '"')
         {
-            letter = new Letter(character);
+            letter = new Letter(character,this.placeholder);
             this.letters.push(letter);
         }
     }
-    this.answered = false;    
+    this.answered = false;
   }
   
 // creates the toString() method and applies it to all programmer objects
 Word.prototype.toString = function() {
     let word = '';
-    this.letters.forEach(element => {
-        word += element.toString() + ' ';
+    this.letters.forEach(letter => {
+        word += ((letter.isVisable() || this.placeholder) ? letter.toString() : '')
+                                     + (this.placeholder  ? ' ' : '');
     });
-//    console.log("Word: " + word + "\nAnswered: " + this.answered);
     return word;
-};
+}
+
+Word.prototype.removeLetter = function(character) {
+    this.letters.forEach(letter => {
+        if (character == letter.toString() )
+        {
+            letter.setHidden(true);
+        }
+    });
+}
 
 Word.prototype.isAnswered = function() {
     let word = '';
     this.answered = true; // Assume is is true
-    this.letters.forEach(element => {
-        if( !element.guessed )
+    this.letters.forEach(letter => {
+        if( !letter.isAnswered() )
         {
-//            console.log('!isAnswered');
             this.answered = false;
             return this.answered;
         }
     });
-//    if (this.answered)
-//        console.log('isAnswered');
 
     return this.answered;
 }
+Word.prototype.setAnswered = function(value) { this.answered = value; }
 
-// creates the guessLetter() method and applies it to all programmer objects
 Word.prototype.guessLetter = function(choice) {
     let foundLetter = false;
-    let foundAllLetters = true; // Assume so until determined otherwise
- //   console.log("character: " + this.character + "\nGuessed: " + this.guessed);
-    this.letters.forEach(element => {
-        if (element.guessLetter(choice))
+    this.letters.forEach(letter => {
+        if (!letter.isAnswered())
         {
-            foundLetter = true;
-            if( !foundLetter )
-                foundAllLetters = false; 
+            if (letter.guessLetter(choice))
+            {
+                foundLetter = true;
+                return foundLetter; 
+            }
         }
     });
-//   console.log('Found A Letter: ' + foundLetter + ' Found All Letters: ' + foundAllLetters  );
-    return foundAllLetters;
+    return foundLetter;
 };
 
 module.exports = Word;
