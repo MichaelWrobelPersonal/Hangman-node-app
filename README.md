@@ -1,4 +1,4 @@
-# Retro-Hangman
+# Retro-Olympic-Man
 
 The word/letter guessing game of Hangman implemented as a Console base Node JS Application
 
@@ -8,8 +8,6 @@ node index
 
 to start the game.
 
-
-
 # Deployed site
 None - See above for instructions on running the application
 
@@ -18,11 +16,13 @@ Michael Wrobel
 
 #Technology Details
 
-This is primarily a project emphasizing what can be accomplished programmatically using NodeJS.  The actual user interface is secondary in this project to the effort put into the actual gameplay..
+A Node JS version of the classic Hangman game utilizing advanced Javascript object oriented concepts.
 
 #About the Theme
 
-The 1st Hangman project was themed around the 2018 Sochi Winter Olympics.  It is therefore an obvious choice to theme this project after the 2016 Rio Summer Olympics.
+Retro Olympic Man is based on the Summer Olympics and is named 'retro' in reference to being a throwback to console based text games.
+
+Have Fun!
 
 # Contributions
 
